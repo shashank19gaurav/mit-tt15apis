@@ -19,3 +19,6 @@ Route::get('categories', 'ApiController@categories');
 Route::get('events/{cat_id}', 'ApiController@events');
 Route::get('events/', 'ApiController@events');
 Route::get('events', 'ApiController@events');
+
+Route::get('results', 'ApiController@results');
+

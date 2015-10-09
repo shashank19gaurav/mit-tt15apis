@@ -44,7 +44,27 @@ class ApiController extends Controller
 		$data[$i]['result'] = " Team ID: ".$result->teamId." Position: ".$result->position;
 		$i++;
 	}
-        $response['data'] = $data;
+	$finalData = array();
+	$k = 0;
+	$finalData[$k]['categoryName']='dummy';
+	$currentCategory = '';
+	for($j=0;$j<$i;$j++){
+	    if($finalData[$k]['categoryName']==$data[$j]['categoryName']){
+                //Append to the current result
+                $finalData[$k]['eventName'] = $data[$j]['eventName'];
+                $finalData[$k]['categoryName'] = $data[$j]['categoryName'];
+                $finalData[$k]['result'] .= '          '.$data[$j]['result'];
+            }else{
+		$k= $k+1;
+                //Append to the current result
+                $finalData[$k]['eventName'] = $data[$j]['eventName'];
+                $finalData[$k]['categoryName'] = $data[$j]['categoryName'];
+                $finalData[$k]['result'] = $data[$j]['result'];
+            }
+	}
+	$finalData[0] = $finalData[$k];
+	unset($finalData[$k]);
+        $response['data'] = $finalData;
         return json_encode($response);
     
     }
